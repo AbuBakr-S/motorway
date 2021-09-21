@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: white;
+}
+
+div.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+div.container {
+  display: flex;
+  color: #FFFFFF;
+  flex-direction: column;
+  min-width: 480px;
+  width: 600px;
+  border-radius: 15px;
+  box-shadow: 10px 5px 12px 5px #BFC0C0;
+  background-color: #2D3142;
+  margin: 50px;
+  border-bottom: 15px solid transparent;
+  overflow: hidden;
+}
+
+div.container:hover {
+  border-bottom: 15px solid #EF8354;
+}
+
+div.card-header {
+  display: flex;
+  padding: 0 5%;
+  height: 100px;
+}
+
+.user-profile-img {
+  height: 50px;
+  width: 100%;
+  border-radius: 50%;  
+}
+
+div.card-header-left {
+  display: flex;
+  align-items: center;
+}
+
+.car {
+  height: 300px;
+  width: 100%;
+  object-fit: scale-down;
+  object-position: center;
+  transition: all 0.5s;
+  filter: grayscale(1) contrast(5);
+  /* clip-path: circle(75%); */
+}
+
+.car:hover {
+  transform: scale(1.75);
+  background-color: rgba(0, 0, 0, 0.7);
+  filter: grayscale(0);
+  /* clip-path: circle(25%); */
+}
+
+.card-body {
+  width: 100%;
+  flex: 2;
+}
+
+.card-body p {
+  padding: 0 5%;
+}
+
+.card-footer {
+  align-self: center;
+  z-index: 1;
+}
+
+
+:root {
+  --clr-accent: #EF8354;
+}
+
+/* Form Styling */
+form {
+  width: 500px;
+  margin: 0 auto;
+}
+
+input {
+  accent-color: var(--clr-accent);
+  border-color: var(--clr-accent);
+  border-style: solid;
+  border-radius: 15px;
+  font-family: 'Lato', sans-serif;
+}
+
+form div {
+  margin-bottom: 20px;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=date] {
+  padding: 6px 10px;
+}
+
+input[type=submit] {
+  background-color: #EF8354;
+  padding: 10px;
+}
