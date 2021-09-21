@@ -52,9 +52,6 @@ const Form = () => {
     setSalary(e.target.value)
   }
 
-  console.log('form data', formData)
-  console.log('form errors', formErrors)
-
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
