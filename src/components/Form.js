@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 
 const Form = () => {
 
-  // save form data in an object
+  // set max date on date of birth to current date
+  const present = new Date().toISOString().slice(0, 10);
+
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
@@ -11,7 +13,6 @@ const Form = () => {
     salary: '',
   })
 
-  // save errors in an object that will be initialised on the form data
   const [formErrors, setFormErrors] = React.useState({
     name: '',
     email: '',
@@ -20,30 +21,28 @@ const Form = () => {
     salary: '',
   })
 
-  const handleChange = (e) => {
-    // key, value matches state
-    setFormData({ ...formData, [e.target.id]: e.target.value })
-    console.log('change')
-    // setFormErrors({})
+  const handleChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setFormErrors({ ...formErrors, [e.target.name]: '' })
   }
 
   const handleSubmit = (e) => {  
     e.preventDefault()
     setFormErrors({ ...formData })
 
-    // check for empty fields on each form field
-    for (const field in formErrors) {
-      if (!formErrors[field]) {
+    //check for empty fields on each form field
+    for (const field in formData) {
+      if (!formData[field]) {
         formErrors[field] = 'Cannot be empty'
       }
     }
 
     // check for an @ sign in email address
-    if (formData.email && !formData.email.includes('@')) {
+    if (formData.email && !formData.email.match(/@.+\..+/g)) {
       formErrors.email = 'Invalid email'
     }
 
-    setFormErrors({ ...formErrors, [e.target.id]: e.target.value })
+    setFormErrors({ ...formErrors })
   }
 
   // default to £30K
@@ -53,7 +52,8 @@ const Form = () => {
     setSalary(e.target.value)
   }
 
-  console.log(formErrors)
+  console.log('form data', formData)
+  console.log('form errors', formErrors)
 
   return (
     <div className="form-container">
@@ -63,17 +63,19 @@ const Form = () => {
       </div>
       <div>
         <label htmlFor="name">Name: </label>
-        <input type="text" id="name" placeholder="Full Name" aria-required="true" onChange={handleChange}/>
+        <input type="text" id="name" name="name" placeholder="Full Name" aria-required="true" onChange={handleChange}/>
         <small className="error">{formErrors.name}</small>
       </div>
       <div>
         <label htmlFor="email">Email: </label>
-        <input type="text" id="email" placeholder="youremail@domain.com" aria-required="true" onChange={handleChange}/>
-        <small className="error">{formErrors.email}</small>
+        <input type="text" id="email" name="email" placeholder="youremail@domain.com" aria-required="true" onChange={handleChange}/>
+        {formErrors.email && (
+          <small className="error">{formErrors.email}</small>
+        )}
       </div>
       <div>
         <label htmlFor="dob">Date of Birth: </label>
-        <input type="date" id="dob" name="dob" aria-required="true" onChange={handleChange}/><br />
+        <input type="date" id="dob" name="dob" aria-required="true" max={present} onChange={handleChange}/><br />
         <small className="error">{formErrors.dob}</small>
       </div>
       <div>
