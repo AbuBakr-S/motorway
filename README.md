@@ -20,7 +20,7 @@ I added a couple checks on the form fields:
 
 * Empty fields
 * Invalid email format
-* Max date ob the date of birth date picker
+* Max date on the date of birth date picker
 
 I also added some defaults to fields such as the colour picker, which has been set to black, or more accurately: `#000000`. I also set the default salary range to 30000 to represent £30K.
 
