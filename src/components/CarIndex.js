@@ -1,8 +1,25 @@
 import React, { useEffect, useState } from 'react';
 
-// icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import CarCard from '../components/CarCard'
+
+const FadeInSection = props => {
+  const [isVisible, setVisible] = React.useState(false);
+  const domRef = React.useRef();
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => setVisible(entry.isIntersecting));
+    });
+    observer.observe(domRef.current);
+  }, []);
+  return (
+    <div
+      className={`fade-in-section ${isVisible ? 'is-visible' : ''}`}
+      ref={domRef}
+    >
+      {props.children}
+    </div>
+  );
+}
 
 const CarIndex = () => {
 
@@ -18,37 +35,19 @@ const CarIndex = () => {
       .catch(error => {
         console.error('Error:', error);
       });
-  }, []);
+  }, []);  
 
 
   return (
     <>
       <h1>Cars</h1>
       <div className="cards-container">
-        {
-          images && images.map(img => (
-            <div className="container" key={img.id}>
-              
-              <div className="card-header">
-                <div className="card-header-left">
-                  <img className="user-profile-img" src={img.user.profile_image} alt=''/>
-                </div>
-                <div className="card-header-right">
-                  <h3>Shot by {img.user.name}</h3>
-                  <h4>{img.user.location}</h4>
-                </div>
-              </div>
-              <div className="card-body">
-                <img className="car" src={img.url} alt={img.alt_description}/>
-                <p>{img.description ? img.description : `No Description Provided`}</p>
-              </div>
-              <div className="card-footer">
-                <FontAwesomeIcon className="fa-items-plusicon" icon={faHeart} />
-                <span>{img.likes}</span>
-              </div>
-            </div>
-          ))
-        }
+        {images && images.map(img => (
+          <FadeInSection>
+            <CarCard key={img.id} img={img}/>
+          </FadeInSection>
+          
+        ))}
       </div>
     </>
   )
